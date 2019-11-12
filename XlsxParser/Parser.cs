@@ -26,21 +26,22 @@ namespace XlsxParser
         {
             var obj = (T)Activator.CreateInstance(typeof(T));
             var tmp = new List<T>();
-            var indexList = new List<int>();
+            var indexDic = new Dictionary<string, int>();
+            var attNames = GetDisplayAttributeNames<T>();
 
             using (var workbook = new ExcelPackage(new FileInfo(path)))
             {
                 var worksheet = workbook.Workbook.Worksheets[sheetName];
                 for(int c = worksheet.Dimension.Start.Column;c<=worksheet.Dimension.End.Column;c++)
                 {
-                    if(GetDisplayAttributeNames<T>().Contains(worksheet.Cells[1,c].Value.ToString()))
+                    if(attNames.Contains(worksheet.Cells[1,c].Value.ToString()))
                     {
-                        indexList.Add(c);
+                        indexDic[worksheet.Cells[1, c].Value.ToString()] = c;
                     }
                 }
-
             }
-                
+            //TODO reszta programu
+            return tmp;   
         }
     }
 }

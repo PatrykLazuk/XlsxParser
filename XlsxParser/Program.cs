@@ -11,8 +11,7 @@ namespace XlsxParser
         static void Main(string[] args)
         {
             Parser parser = new Parser();
-            parser.GetDisplayAttributeNames<XlsxFile>();
-            Console.ReadLine();
+            parser.LoadXlsx<XlsxFile>(@"C:\tests\TEST.xlsx", "Arkusz1");
         }
     }
 }
