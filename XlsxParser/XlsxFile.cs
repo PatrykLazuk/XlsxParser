@@ -16,13 +16,13 @@ namespace XlsxParser
         public string LastName { get; set; }
 
         [DisplayName("Age")]
-        public int Age { get; set; }
+        public double Age { get; set; }
 
         [DisplayName("Date of Birth")]
-        public DateTime Birthday { get; set; }
+        public double Birthday { get; set; }
 
         [DisplayName("Salary")]
-        public int Salary { get; set; }
+        public double Salary { get; set; }
 
         [DisplayName("Manager")]
         public bool Manager { get; set; }

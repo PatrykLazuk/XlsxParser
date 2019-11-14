@@ -12,35 +12,50 @@ namespace XlsxParser
 {
     public class Parser
     {
-        public List<string> GetDisplayAttributeNames<T>()
+        private Dictionary<string, string> GetDisplayAttributeNames<T>()
         {
-            var dispNames = new List<string>();
+            var dispNames = new Dictionary<string, string>();
             var obj = (T)Activator.CreateInstance(typeof(T));
             foreach (PropertyInfo prop in obj.GetType().GetProperties().ToList<PropertyInfo>())
             {
-                dispNames.Add(prop.GetCustomAttribute<DisplayNameAttribute>().DisplayName);
+                string propName = prop.Name;
+                dispNames[prop.GetCustomAttribute<DisplayNameAttribute>().DisplayName] = prop.Name;
             }
             return dispNames;
         }
-        public List<T> LoadXlsx<T>(string path, string sheetName)
+        public List<T> LoadXlsx<T>(string path, string sheetName,int headerRowNumber)
         {
             var obj = (T)Activator.CreateInstance(typeof(T));
             var tmp = new List<T>();
-            var indexDic = new Dictionary<string, int>();
+            var indexDic = new Dictionary<int, string>();
             var attNames = GetDisplayAttributeNames<T>();
 
             using (var workbook = new ExcelPackage(new FileInfo(path)))
             {
+                //stworzenie zmiennej worksheetu
                 var worksheet = workbook.Workbook.Worksheets[sheetName];
+                //stworzenie slownika (Header,Index)
                 for(int c = worksheet.Dimension.Start.Column;c<=worksheet.Dimension.End.Column;c++)
                 {
-                    if(attNames.Contains(worksheet.Cells[1,c].Value.ToString()))
+                    if(attNames.Keys.Contains(worksheet.Cells[headerRowNumber, c].Value.ToString()))
                     {
-                        indexDic[worksheet.Cells[1, c].Value.ToString()] = c;
+                        indexDic[c] = worksheet.Cells[1, c].Value.ToString();
                     }
                 }
+                //stworzenie listy obiektów z kazdego row
+                for(int r = headerRowNumber + 1;r<=worksheet.Dimension.End.Row;r++)
+                {
+                    var row = (T)Activator.CreateInstance(typeof(T));
+                    for(int c = worksheet.Dimension.Start.Column; c <= worksheet.Dimension.End.Column; c++)
+                    {
+                        if(indexDic.Keys.Contains(c))
+                        {
+                            row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, worksheet.Cells[r, c].Value);
+                        }
+                    }
+                    tmp.Add(row);
+                }
             }
-            //TODO reszta programu
             return tmp;   
         }
     }
