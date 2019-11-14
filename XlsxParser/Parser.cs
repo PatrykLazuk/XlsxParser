@@ -39,7 +39,7 @@ namespace XlsxParser
                 {
                     if(attNames.Keys.Contains(worksheet.Cells[headerRowNumber, c].Value.ToString()))
                     {
-                        indexDic[c] = worksheet.Cells[1, c].Value.ToString();
+                        indexDic[c] = worksheet.Cells[headerRowNumber, c].Value.ToString();
                     }
                 }
                 //stworzenie listy obiektów z kazdego row
