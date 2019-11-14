@@ -50,7 +50,10 @@ namespace XlsxParser
                     {
                         if(indexDic.Keys.Contains(c))
                         {
-                            row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, worksheet.Cells[r, c].Value);
+                            var value = worksheet.Cells[r, c].Value;
+                            if (row.GetType().GetProperty(attNames[indexDic[c]]).PropertyType.Name.Equals("DateTime"))
+                                value = DateTime.FromOADate((double)value);
+                            row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, value);
                         }
                     }
                     tmp.Add(row);

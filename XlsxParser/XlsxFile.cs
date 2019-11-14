@@ -19,7 +19,7 @@ namespace XlsxParser
         public double Age { get; set; }
 
         [DisplayName("Date of Birth")]
-        public double Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         [DisplayName("Salary")]
         public double Salary { get; set; }
