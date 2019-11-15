@@ -23,7 +23,7 @@ namespace XlsxParser
             }
             return dispNames;
         }
-        public List<T> LoadXlsx<T>(string path, string sheetName,int headerRowNumber)
+        public List<T> LoadXlsx<T>(string path, string sheetName,int headerRowNumber=1)
         {
             var obj = (T)Activator.CreateInstance(typeof(T));
             var tmp = new List<T>();
@@ -51,6 +51,7 @@ namespace XlsxParser
                         if(indexDic.Keys.Contains(c))
                         {
                             var value = worksheet.Cells[r, c].Value;
+                            if (value is null) continue;
                             if (row.GetType().GetProperty(attNames[indexDic[c]]).PropertyType.Name.Equals("DateTime"))
                                 value = DateTime.FromOADate((double)value);
                             row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, value);
