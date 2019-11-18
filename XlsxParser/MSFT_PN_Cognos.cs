@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace XlsxParser
 {
-    public class MSFT_PN_Cognos_Report
+    public class MSFT_PN_Cognos
     {
         [DisplayName("PART NUMBER")]
         public string PN { get; set; }

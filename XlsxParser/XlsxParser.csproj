@@ -64,13 +64,13 @@
     </Compile>
     <Compile Include="MSFT_Class_Logic.cs" />
     <Compile Include="MSFT_Class_Matrix.cs" />
+    <Compile Include="MSFT_Engine.cs" />
     <Compile Include="MSFT_PN.cs" />
-    <Compile Include="MSFT_PN_Cognos_Report.cs" />
+    <Compile Include="MSFT_PN_Cognos.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="I_PN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateCreator.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

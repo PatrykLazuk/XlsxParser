@@ -33,8 +33,6 @@ namespace XlsxParser
             this.PN = _GPL_PN.SKU;
             this.Description = _GPL_PN.Description;
             this.Platform = _GPL_PN.Platform;
-            this.Class = _logic.GetClassAndSubclass(_GPL_PN.Platform)[0];
-            this.Subclass = _logic.GetClassAndSubclass(_GPL_PN.Platform)[1];
             switch(_GPL_PN.SKUType)
             {
                 case "A":
@@ -71,6 +69,9 @@ namespace XlsxParser
                     break;
 
             }
+            this.Class = _logic.GetClassAndSubclass(_GPL_PN.Platform)[0];
+            this.Subclass = _logic.GetClassAndSubclass(_GPL_PN.Platform)[1];
         }
+
     }
 }
