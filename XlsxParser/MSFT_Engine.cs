@@ -10,21 +10,22 @@ namespace XlsxParser
     public class MSFT_Engine
     {
         private Parser _parser;
+        private MSFT_Config _msft_config;
         private MSFT_Class_Logic _class_logic;
-        public MSFT_Engine(string MSFT_ClassMatrix)
+        public MSFT_Engine(Config config)
         {
+            _msft_config = config.MSFT_Config;
             _parser = new Parser();
-            //TODO wyciagnac lokalizację matrixa do configa
-            _class_logic = new MSFT_Class_Logic(MSFT_ClassMatrix, "Sheet1");
+            _class_logic = new MSFT_Class_Logic(_msft_config.Class_Matrix_Location, "Sheet1");
         }
         //Wyciąganie PNow MSFT z GPL
-        public List<MSFT_PN> Load_MSFT_PN_form_GPL(string gpl_file_path)
+        private List<MSFT_PN> Load_MSFT_PN_form_GPL()
         {
             var PNs = new List<MSFT_PN>();
-            if (File.Exists(gpl_file_path))
+            if (File.Exists(_msft_config.GPL_File_Location))
             {
 
-                var GPL_entries = _parser.LoadXlsx<GPL_Entry>(gpl_file_path, "Global Parts List", 3);
+                var GPL_entries = _parser.LoadXlsx<GPL_Entry>(_msft_config.GPL_File_Location, "Global Parts List", 3);
                 foreach (var row in GPL_entries)
                 {
                     MSFT_PN pn = new MSFT_PN(row, _class_logic);
@@ -46,8 +47,9 @@ namespace XlsxParser
             return PNs;
         }
 
-        public List<MSFT_PN> New_MSFT_PNs(List<MSFT_PN> PNs_from_GPL, List<MSFT_PN_Cognos> PNs_from_Cognos)
+        public List<MSFT_PN> New_MSFT_PNs(List<MSFT_PN_Cognos> PNs_from_Cognos)
         {
+            var PNs_from_GPL = Load_MSFT_PN_form_GPL();
             var tmp = new List<MSFT_PN>();
             foreach (var GPL_PN in PNs_from_GPL)
             {

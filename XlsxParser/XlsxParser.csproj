@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="CSVWriter.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GPL_Entry.cs" />
@@ -64,6 +65,7 @@
     </Compile>
     <Compile Include="MSFT_Class_Logic.cs" />
     <Compile Include="MSFT_Class_Matrix.cs" />
+    <Compile Include="MSFT_Config.cs" />
     <Compile Include="MSFT_Engine.cs" />
     <Compile Include="MSFT_PN.cs" />
     <Compile Include="MSFT_PN_Cognos.cs" />
