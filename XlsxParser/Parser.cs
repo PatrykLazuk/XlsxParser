@@ -25,7 +25,6 @@ namespace XlsxParser
         }
         public List<T> LoadXlsx<T>(string path, string sheetName,int headerRowNumber=1)
         {
-            var obj = (T)Activator.CreateInstance(typeof(T));
             var tmp = new List<T>();
             var indexDic = new Dictionary<int, string>();
             var attNames = GetDisplayAttributeNames<T>();
@@ -37,7 +36,9 @@ namespace XlsxParser
                 //stworzenie slownika (Header,Index)
                 for(int c = worksheet.Dimension.Start.Column;c<=worksheet.Dimension.End.Column;c++)
                 {
-                    if(attNames.Keys.Contains(worksheet.Cells[headerRowNumber, c].Value.ToString()))
+                    var value = worksheet.Cells[headerRowNumber, c].Value;
+                    if (value is null) continue;
+                    if (attNames.Keys.Contains(value.ToString()))
                     {
                         indexDic[c] = worksheet.Cells[headerRowNumber, c].Value.ToString();
                     }
@@ -51,7 +52,10 @@ namespace XlsxParser
                         if(indexDic.Keys.Contains(c))
                         {
                             var value = worksheet.Cells[r, c].Value;
+
                             if (value is null) continue;
+                            if (row.GetType().GetProperty(attNames[indexDic[c]]).PropertyType != value.GetType()) continue;
+
                             if (row.GetType().GetProperty(attNames[indexDic[c]]).PropertyType.Name.Equals("DateTime"))
                                 value = DateTime.FromOADate((double)value);
                             row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, value);

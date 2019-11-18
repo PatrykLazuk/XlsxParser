@@ -65,6 +65,7 @@
     <Compile Include="MSFT_Class_Logic.cs" />
     <Compile Include="MSFT_Class_Matrix.cs" />
     <Compile Include="MSFT_PN.cs" />
+    <Compile Include="MSFT_PN_Cognos_Report.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="I_PN.cs" />
     <Compile Include="Program.cs" />

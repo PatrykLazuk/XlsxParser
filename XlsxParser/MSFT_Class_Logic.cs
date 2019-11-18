@@ -26,8 +26,16 @@ namespace XlsxParser
         {
             string[] tmp = new string[2];
             var result = _matrix.Find(i => i.Platform == SKU_Plaftorm);
-            tmp[0] = result.Class;
-            tmp[1] = result.Subclass;
+            if(!(result == null))
+            {
+                tmp[0] = result.Class;
+                tmp[1] = result.Subclass;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Platform {SKU_Plaftorm} not found in Matrix File");
+            }
+
             return tmp;
         }
     }
