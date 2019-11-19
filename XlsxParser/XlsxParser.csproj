@@ -57,6 +57,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="GPL_Entry.cs" />
     <Compile Include="IClassMatrix.cs" />
+    <Compile Include="ITemplate_Creator.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,10 +70,12 @@
     <Compile Include="MSFT_Engine.cs" />
     <Compile Include="MSFT_PN.cs" />
     <Compile Include="MSFT_PN_Cognos.cs" />
+    <Compile Include="MSFT_Template_Type.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="I_PN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template_Base.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

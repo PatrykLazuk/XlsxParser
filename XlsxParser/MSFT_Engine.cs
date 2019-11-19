@@ -59,5 +59,10 @@ namespace XlsxParser
             return tmp;
             
         }
+
+        public void Create_Template(List<MSFT_PN> PNs, MSFT_Template_Type template_type)
+        {
+            
+        }
     }
 }
