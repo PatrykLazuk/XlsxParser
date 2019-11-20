@@ -5,22 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
+using System.ComponentModel;
+using OfficeOpenXml;
 
 namespace XlsxParser
 {
     public class CSVWriter
     {
-        public static void WriteCsv<T>(List<T> list, string filePath, char separator)
+        public static void WriteCsv<T>(List<T> list, string filePath, char separator=',')
         {
             using (StreamWriter writer = new StreamWriter(filePath))
             {
-                PropertyInfo[] propsTable = list[0].GetType().GetProperties();
+                var propsList = list[0].GetType().GetProperties().ToList<PropertyInfo>();
+                var dispAttNames = new List<string>();
+                foreach (PropertyInfo prop in propsList)
+                {
+                    dispAttNames.Add(prop.GetCustomAttribute<DisplayNameAttribute>().DisplayName);
+                }
                 string headerLine = "";
 
-                for (int i = 0; i < propsTable.Length; i++)
+                for (int i = 0; i < dispAttNames.Count; i++)
                 {
-                    headerLine += propsTable[i].Name;
-                    if (i < propsTable.Length - 1)
+                    headerLine += dispAttNames[i];
+                    if (i < dispAttNames.Count - 1)
                         headerLine += separator;
                 }
 
@@ -36,8 +43,6 @@ namespace XlsxParser
                         if (i < valueTable.Length - 1)
                             strLine += separator;
                     }
-
-
                     writer.WriteLine(strLine);
                 }
             }

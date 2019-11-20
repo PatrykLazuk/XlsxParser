@@ -9,7 +9,7 @@ namespace XlsxParser
 {
     public class Template_Base
     {
-        [DisplayName("ACTION CODE")]    
+        [DisplayName("ACTION CODE")]
         public string Action_Code { get; set; }
 
         [DisplayName("PART NUMBER")]
@@ -114,7 +114,65 @@ namespace XlsxParser
         [DisplayName("SOURCE TYPE")]
         public string Source_Type { get; set; }
 
+        [DisplayName("CYCLE COUNT CODE")]
+        public string Cycle_Count_Code { get; set; }
 
+        [DisplayName("BUYER ANALYZER")]
+        public string Buyer_Analyzer { get; set; }
+
+        [DisplayName("MIN STOCK QTY")]
+        public int Min_Stock_Qty { get; set; }
+
+        [DisplayName("MAX STOCK QTY")]
+        public int Max_Stock_Qty { get; set; }
+
+        [DisplayName("VALUE CLASS")]
+        public string Value_Cost { get; set; }
+
+        [DisplayName("STANDARD COST")]
+        public double Standard_cost { get; set; }
+
+        [DisplayName("UNIT COST")]
+        public double Unit_Cost { get; set; }
+
+        [DisplayName("DEFAULFT WAREHOUSE")]
+        public string Default_Warehouse { get; set; }
+
+        [DisplayName("DEFAULT STOCK LOCATION")]
+        public string Default_Stock_Location { get; set; }
+
+        [DisplayName("DEFAULT BIN")]
+        public string Default_Bin { get; set; }
+
+        [DisplayName("OBA CLASS CODE")]
+        public string Oba_Class_Code { get; set; }
+
+        [DisplayName("SAFETY STOCK QTY")]
+        public int Safety_Stock_Qty { get; set; }
+
+        [DisplayName("REORDER POINT QTY")]
+        public int Reorder_Point_Qty { get; set; }
+
+        [DisplayName("ECONOMIC ORDER QTY")]
+        public int Economic_Stock_Qty { get; set; }
+
+        [DisplayName("REORDER MAX QTY")]
+        public int Reorder_Max_Qty { get; set; }
+
+        [DisplayName("OBA LOT SIZE")]
+        public int Oba_Lot_Size { get; set; }
+
+        [DisplayName("PACK OUT TEMPLATE")]
+        public string Pack_Out_Template { get; set; }
+
+        [DisplayName("INACTIVE")]
+        public string Inactive { get; set; }
+
+        [DisplayName("CYCLE COUNT PERIOD")]
+        public string Cycle_Count_Period { get; set; }
+
+        [DisplayName("PGAFF:")]
+        public List<string> PGA_FlexFields {get; set;}
 
 
 
