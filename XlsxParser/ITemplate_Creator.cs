@@ -4,8 +4,6 @@ namespace XlsxParser
 {
     interface ITemplate_Type
     {
-        List<string> Condition { get; set; }
-        List<string> Location { get; set; }
-        List<string> Owner { get; set; }
+        public List<Template_Setup> SetupList{ get; set; }
     }
 }

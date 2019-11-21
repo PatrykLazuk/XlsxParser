@@ -46,9 +46,21 @@ namespace XlsxParser
             }
             return PNs;
         }
-
-        public List<MSFT_PN> New_MSFT_PNs(List<MSFT_PN_Cognos> PNs_from_Cognos)
+        private List<MSFT_PN_Cognos> LoadCognosReport()
         {
+            if (!File.Exists(_msft_config.Cognos_Report_Location))
+            {
+                throw new DirectoryNotFoundException("Cognos report not found");
+            }
+            else
+            {
+                return _parser.LoadXlsx<MSFT_PN_Cognos>(_msft_config.Cognos_Report_Location, "page", 1);
+            }
+        }
+
+        public List<MSFT_PN> New_MSFT_PNs()
+        {
+            var PNs_from_Cognos = LoadCognosReport();
             var PNs_from_GPL = Load_MSFT_PN_form_GPL();
             var tmp = new List<MSFT_PN>();
             foreach (var GPL_PN in PNs_from_GPL)
@@ -57,12 +69,33 @@ namespace XlsxParser
                 if (result is null) tmp.Add(GPL_PN);
             }
             return tmp;
-            
+
         }
 
-        public void Create_Template(List<MSFT_PN> PNs, MSFT_Template_Type template_type)
+
+
+
+        public List<Template_Base> Create_Template(List<MSFT_PN> PNs, MSFT_Template_Type template_type)
         {
-            
+            List<Template_Base> created_template = new List<Template_Base>();
+            foreach (var PN in PNs)
+            {
+                foreach (var setupline in template_type.SetupList)
+                {
+                    Template_Base template_line = new Template_Base()
+                    {
+                        Part_Number = PN.PN,
+                        Part_Description = PN.Description,
+                        Location = setupline.Location,
+                        Owner = setupline.Owner,
+                        Condition = setupline.Condition,
+                        BCN_REQ = setupline.BCN_REQ,
+                        SN_REQ =  setupline.SN_REQ
+                    };
+                    created_template.Add(template_line);
+                }
+            }
+            return created_template;
         }
     }
 }

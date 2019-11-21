@@ -8,16 +8,11 @@ namespace XlsxParser
 {
     public class MSFT_Template_Type : ITemplate_Type
     {
-        public List<string> Location { get; set; }
-        public List<string> Owner { get; set; }
-        public List<string> Condition { get; set; }
+        public List<Template_Setup> SetupList { get; set; }
 
-        public MSFT_Template_Type(string TemplatePath)
+        public MSFT_Template_Type()
         {
-            var template = XMLSerializer.ReadXmlToObj<MSFT_Template_Type>(TemplatePath);
-            Location = template.Location;
-            Owner = template.Owner;
-            Condition = template.Condition;
+            SetupList = new List<Template_Setup>();
         }
     }
 }

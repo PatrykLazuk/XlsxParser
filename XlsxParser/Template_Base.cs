@@ -173,8 +173,5 @@ namespace XlsxParser
 
         [DisplayName("PGAFF:")]
         public List<string> PGA_FlexFields {get; set;}
-
-
-
     }
 }

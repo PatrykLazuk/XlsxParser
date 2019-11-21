@@ -10,38 +10,38 @@ namespace XlsxParser
 {
     class Program
     {
-        public static void CreateConfig()
+        public static string MainDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static void CreateTemplateXML()
         {
-            string MainDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            Config config = new Config();
-            config.Location = "Location";
-            config.MSFT_Config = new MSFT_Config();
-            config.MSFT_Config.Class_Matrix_Location = "Location";
-            config.MSFT_Config.GPL_File_Location = "location";
-            XMLSerializer.WriteAsXml<Config>(config, Path.Combine(MainDir,"Config.xml"));
+            MSFT_Template_Type _Type = new MSFT_Template_Type();
+            _Type.SetupList.Add(new Template_Setup() { Location = "Bydgoszcz", Owner = "Microsoft", Condition = "New", BCN_REQ = "Y", SN_REQ = "Y" });
+            _Type.SetupList.Add(new Template_Setup() { Location = "Bydgoszcz", Owner = "Microsoft", Condition = "Workable", BCN_REQ = "N", SN_REQ = "N" });
+            _Type.SetupList.Add(new Template_Setup() { Location = "Bydgoszcz", Owner = "Microsoft", Condition = "Refurbished", BCN_REQ = "Y", SN_REQ = "Y" });
+            _Type.SetupList.Add(new Template_Setup() { Location = "Bydgoszcz", Owner = "Microsoft", Condition = "Salvage", BCN_REQ = "N", SN_REQ = "N" });
+
+            if(!Directory.Exists(Path.Combine(MainDir,"Templates")))
+            {
+                Directory.CreateDirectory(Path.Combine(MainDir, "Templates"));
+            }
+            var TemplatesLocation = Path.Combine(MainDir,"Templates");
+            XMLSerializer.WriteAsXml<MSFT_Template_Type>(_Type, Path.Combine(TemplatesLocation, "template.xml"));
+        }
+
+        public static Config LoadConfig()
+        {
+            
+            return XMLSerializer.ReadXmlToObj<Config>(Path.Combine(MainDir, "Config.xml"));
+
         }
         static void Main(string[] args)
         {
-            //CreateConfig();
-            //Parser parser = new Parser();
-            string MainDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //Engine engine = new Engine(XMLSerializer.ReadXmlToObj<Config>(Path.Combine(MainDir,"Config.xml")));
-            //var new_pns = engine._MSFT_Engine.New_MSFT_PNs(parser.LoadXlsx<MSFT_PN_Cognos>(@"C:\tests\SAP SL Part Group Attribute.xlsx", "page"));
-            List<Template_Base> templates = new List<Template_Base>();
-            Template_Base template = new Template_Base();
-            templates.Add(template);
-            Template_Base template2 = new Template_Base();
-            templates.Add(template2);
-            Template_Base template3 = new Template_Base();
-            templates.Add(template3);
-            Template_Base template4 = new Template_Base();
-            templates.Add(template4);
+            //CreateTemplateXML();
 
-            CSVWriter.WriteCsv(templates, Path.Combine(MainDir, "Test.csv"),' ');
-
-
-
-
+            MSFT_Engine engine = new MSFT_Engine(LoadConfig());
+            var new_pns = engine.New_MSFT_PNs();
+            var ASKU = XMLSerializer.ReadXmlToObj<MSFT_Template_Type>(Path.Combine(MainDir, "Templates", "template.xml"));
+            var created = engine.Create_Template(new_pns, ASKU);
+            CSVWriter.WriteCsv(created, Path.Combine(MainDir, "Test.csv"),' ');
             Console.WriteLine("Done");
             Console.ReadLine();
         }
