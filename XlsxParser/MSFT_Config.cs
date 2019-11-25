@@ -10,8 +10,6 @@ namespace XlsxParser
     {
         public string GPL_File_Location { get; set; }
         public string Class_Matrix_Location { get; set; }
-        public string Template_Path_Location { get; set; }
-        public string Cognos_Report_Location { get; set; }
 
     }
 }
