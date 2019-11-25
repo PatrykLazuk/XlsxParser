@@ -6,10 +6,27 @@ using System.ComponentModel;
 using System.Reflection;
 using OfficeOpenXml;
 
+
+
 namespace ExcelParser
 {
     public class Parser
     {
+        /// <summary>
+        /// Using Microsoft.Office.Interop to convert XLS to XLSX format, to work with EPPlus library
+        /// </summary>
+        /// <param name="filesFolder"></param>
+        public string ConvertXLS_XLSX(FileInfo file)
+        {
+            var app = new Microsoft.Office.Interop.Excel.Application();
+            var xlsFile = file.FullName;
+            var wb = app.Workbooks.Open(xlsFile);
+            var xlsxFile = xlsFile + "x";
+            wb.SaveAs(Filename: xlsxFile, FileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
+            wb.Close();
+            app.Quit();
+            return xlsxFile;
+        }
         private Dictionary<string, string> GetDisplayAttributeNames<T>()
         {
             var dispNames = new Dictionary<string, string>();
@@ -26,6 +43,14 @@ namespace ExcelParser
             var tmp = new List<T>();
             var indexDic = new Dictionary<int, string>();
             var attNames = GetDisplayAttributeNames<T>();
+
+            using (var pck = new OfficeOpenXml.ExcelPackage())
+            {
+                using (var stream = File.OpenRead(path))
+                {
+                    pck.Load(stream);
+                }
+            }
 
             using (var workbook = new ExcelPackage(new FileInfo(path)))
             {
