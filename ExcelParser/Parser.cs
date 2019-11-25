@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Reflection;
 using OfficeOpenXml;
 
-namespace XlsxParser
+namespace ExcelParser
 {
     public class Parser
     {
@@ -21,7 +21,7 @@ namespace XlsxParser
             }
             return dispNames;
         }
-        public List<T> LoadXlsx<T>(string path, string sheetName,int headerRowNumber=1)
+        public List<T> LoadXlsx<T>(string path, string sheetName, int headerRowNumber = 1)
         {
             var tmp = new List<T>();
             var indexDic = new Dictionary<int, string>();
@@ -32,7 +32,7 @@ namespace XlsxParser
                 //stworzenie zmiennej worksheetu
                 var worksheet = workbook.Workbook.Worksheets[sheetName];
                 //stworzenie slownika (Header,Index)
-                for(int c = worksheet.Dimension.Start.Column;c<=worksheet.Dimension.End.Column;c++)
+                for (int c = worksheet.Dimension.Start.Column; c <= worksheet.Dimension.End.Column; c++)
                 {
                     var value = worksheet.Cells[headerRowNumber, c].Value;
                     if (value is null) continue;
@@ -42,12 +42,12 @@ namespace XlsxParser
                     }
                 }
                 //stworzenie listy obiektów z kazdego row
-                for(int r = headerRowNumber + 1;r<=worksheet.Dimension.End.Row;r++)
+                for (int r = headerRowNumber + 1; r <= worksheet.Dimension.End.Row; r++)
                 {
                     var row = (T)Activator.CreateInstance(typeof(T));
-                    for(int c = worksheet.Dimension.Start.Column; c <= worksheet.Dimension.End.Column; c++)
+                    for (int c = worksheet.Dimension.Start.Column; c <= worksheet.Dimension.End.Column; c++)
                     {
-                        if(indexDic.Keys.Contains(c))
+                        if (indexDic.Keys.Contains(c))
                         {
                             var value = worksheet.Cells[r, c].Value;
 
@@ -62,7 +62,7 @@ namespace XlsxParser
                     tmp.Add(row);
                 }
             }
-            return tmp;   
+            return tmp;
         }
     }
 }
