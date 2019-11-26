@@ -24,7 +24,14 @@ namespace XlsxParser
         {
             Parser parser = new Parser();
             var list = parser.LoadXls<SPB_Entry>(@"C:\tests\Maldives_SPB_HP_20191124.xls", "Service Program BOM", 6);
-
+            var parttype = list.Where(i => i.Part_type == "AC Adapter");
+            foreach(var line in parttype)
+            {
+                if(line.Kit_PN is null)
+                {
+                    
+                }
+            }
 
 
             Console.WriteLine("Done");
