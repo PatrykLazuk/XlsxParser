@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XlsxParser
+﻿namespace XlsxParser
 {
     public class MSFT_PN : I_PN
     {
         private MSFT_Class_Logic _logic;
         private GPL_Entry _GPL_PN;
+
         public MSFT_PN(GPL_Entry GPL_PN, MSFT_Class_Logic classLogic)
         {
             _GPL_PN = GPL_PN;
             _logic = classLogic;
         }
+
         public string PN { get; set; }
         public string Description { get; set; }
         public string Class { get; set; }
@@ -27,13 +23,12 @@ namespace XlsxParser
         public string PartType { get; set; }
         public string Platform { get; set; }
 
-
         public void SetPropertiesFromGPL()
         {
             this.PN = _GPL_PN.SKU;
             this.Description = _GPL_PN.Description;
             this.Platform = _GPL_PN.Platform;
-            switch(_GPL_PN.SKUType)
+            switch (_GPL_PN.SKUType)
             {
                 case "A":
                 case "B":
@@ -47,6 +42,7 @@ namespace XlsxParser
                     this.PartType = "A-SKU";
                     //TODO dodac logike do przydzielania product line
                     break;
+
                 case "EXC":
                 case "EXC/TAA":
                 case "FRU":
@@ -56,22 +52,23 @@ namespace XlsxParser
                     this.PartType = "E-SKU";
                     //TODO dodac logike do przydzielania product line
                     break;
+
                 case "G":
                 case "NF":
                     this.ProductPlatform = _GPL_PN.SKU;
                     this.PartType = "G-SKU";
                     break;
+
                 case "ORT":
                     this.ProductPlatform = _GPL_PN.SKU;
                     this.PartType = "R-SKU";
                     break;
+
                 default:
                     break;
-
             }
             this.Class = _logic.GetClassAndSubclass(_GPL_PN.Platform)[0];
             this.Subclass = _logic.GetClassAndSubclass(_GPL_PN.Platform)[1];
         }
-
     }
 }

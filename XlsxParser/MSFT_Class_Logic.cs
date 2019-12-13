@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XlsxParser
 {
@@ -15,18 +12,20 @@ namespace XlsxParser
         {
             _matrix = LoadMatrix(path, arrName);
         }
+
         //wczytanie matrixa
         private List<MSFT_Class_Matrix> LoadMatrix(string path, string arrName)
         {
             Parser parser = new Parser();
             return parser.LoadXlsx<MSFT_Class_Matrix>(path, arrName);
         }
+
         //wyszukanie odpowiedniego wiersza w matrixie
         public string[] GetClassAndSubclass(string SKU_Plaftorm)
         {
             string[] tmp = new string[2];
             var result = _matrix.Find(i => i.Platform == SKU_Plaftorm);
-            if(!(result == null))
+            if (!(result == null))
             {
                 tmp[0] = result.Class;
                 tmp[1] = result.Subclass;

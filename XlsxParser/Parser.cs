@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.ComponentModel;
-using System.Reflection;
+﻿using NPOI.HSSF.UserModel;
 using OfficeOpenXml;
-using NPOI.HSSF.UserModel;
-using NPOI.HPSF;
-using NPOI.SS.UserModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace XlsxParser
 {
@@ -24,6 +22,7 @@ namespace XlsxParser
             }
             return dispNames;
         }
+
         public List<T> LoadXls<T>(string path, string sheetName, int headerRowNumber = 1)
         {
             var tmp = new List<T>();
@@ -66,13 +65,13 @@ namespace XlsxParser
                             var value = CellValue.DateCellValue;
                             row.GetType().GetProperty(attNames[indexDic[c]]).SetValue(row, value);
                         }
-
                     }
                     tmp.Add(row);
                 }
             }
             return tmp;
         }
+
         public List<T> LoadXlsx<T>(string path, string sheetName, int headerRowNumber = 1)
         {
             var tmp = new List<T>();

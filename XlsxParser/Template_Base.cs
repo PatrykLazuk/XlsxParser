@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace XlsxParser
@@ -172,9 +168,6 @@ namespace XlsxParser
         public string Cycle_Count_Period { get; set; }
 
         [DisplayName("PGAFF:")]
-        public List<string> PGA_FlexFields {get; set;}
-
-
-
+        public List<string> PGA_FlexFields { get; set; }
     }
 }

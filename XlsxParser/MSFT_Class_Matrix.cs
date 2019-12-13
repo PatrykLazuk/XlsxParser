@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace XlsxParser
 {
-    class MSFT_Class_Matrix : IClassMatrix
+    internal class MSFT_Class_Matrix : IClassMatrix
     {
         [DisplayName("Platform/Series")]
         public string Platform { get; set; }

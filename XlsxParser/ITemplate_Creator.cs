@@ -2,7 +2,7 @@
 
 namespace XlsxParser
 {
-    interface ITemplate_Type
+    internal interface ITemplate_Type
     {
         List<string> Condition { get; set; }
         List<string> Location { get; set; }

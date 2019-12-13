@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using OfficeOpenXml;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace XlsxParser
 {
     public class CSVWriter
     {
-        public static void WriteCsv<T>(List<T> list, string filePath, char separator=',')
+        public static void WriteCsv<T>(List<T> list, string filePath, char separator = ',')
         {
             using (StreamWriter writer = new StreamWriter(filePath))
             {

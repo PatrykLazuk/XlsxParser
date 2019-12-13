@@ -71,7 +71,6 @@
     <Compile Include="CSVWriter.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GPL_Entry.cs" />
-    <Compile Include="HP_Engine.cs" />
     <Compile Include="IClassMatrix.cs" />
     <Compile Include="ITemplate_Creator.cs" />
     <Compile Include="Main.cs">
@@ -91,7 +90,6 @@
     <Compile Include="I_PN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SPB_Entry.cs" />
     <Compile Include="Template_Base.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
