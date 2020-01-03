@@ -49,6 +49,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\MSFT_PN_Cognos.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TemplateCreatorLibrary\TemplateCreatorLibrary.csproj">
+      <Project>{8E3995FA-0113-4AAE-8C53-CD156548DF1B}</Project>
+      <Name>TemplateCreatorLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

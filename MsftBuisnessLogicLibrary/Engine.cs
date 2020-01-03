@@ -9,13 +9,14 @@ namespace MsftBuisnessLogicLibrary
 {
     public class Engine
     {
-        public List<GPL_Entry> FindNewPNs(List<GPL_Entry> allGplPns, List<MSFT_PN_Cognos> allPnsFromSl)
+        public List<GPL_Entry> FindNewPNs(List<GPL_Entry> allGplPns, List<MSFT_PN_Cognos> allSlPns)
         {
             List<GPL_Entry> tmp = new List<GPL_Entry>();
             foreach (var GPL_PN in allGplPns)
             {
-                var result = allPnsFromSl.Find(i => i.PN == GPL_PN.SKU);
-                if (result is null) tmp.Add(GPL_PN);
+                var result = allSlPns.Find(i => i.PN == GPL_PN.SKU);
+                if (result is null) 
+                    tmp.Add(GPL_PN);
             }
             return tmp;
 

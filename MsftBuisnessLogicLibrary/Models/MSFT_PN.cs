@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TemplateCreatorLibrary;
 
 namespace MsftBuisnessLogicLibrary.Models
 {
-    public class MSFT_PN
+    public class MSFT_PN : IPartNumber
     {
         private GPL_Entry _GPL_PN;
 
