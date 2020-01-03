@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace XlsxParser
+namespace TemplateCreatorLibrary
 {
-    public class Template_Base
+    public class PartNumberTemplate
     {
         [DisplayName("ACTION CODE")]
         public string Action_Code { get; set; }
@@ -167,7 +171,6 @@ namespace XlsxParser
         [DisplayName("CYCLE COUNT PERIOD")]
         public string Cycle_Count_Period { get; set; }
 
-        [DisplayName("PGAFF:")]
-        public List<string> PGA_FlexFields { get; set; }
+        public Dictionary<string, string> PGA_FlexFields { get; set; }
     }
 }
